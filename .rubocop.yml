@@ -1,0 +1,69 @@
+AlignParameters:
+  Enabled: false
+ClassLength:
+  CountComments: false
+  Max: 200
+Documentation:
+  Enabled: false
+LineLength:
+  Max: 120
+MethodLength:
+  CountComments: false
+  Max: 15
+  Exclude:
+    - 'spec/**/*'
+Metrics/AbcSize:
+  Max: 25
+  Exclude:
+    - 'spec/**/*'
+Metrics/ParameterLists:
+  Max: 7
+  Exclude:
+    - 'spec/features/**/*'
+
+AllCops:
+  TargetRubyVersion: 2.4.3
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Capfile'
+    - 'Rakefile'
+    - 'vendor/**/*'
+Style/Lambda:
+  EnforcedStyle: literal
+Layout/DotPosition:
+  EnforcedStyle: leading
+  Enabled: true
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  SupportedStyles:
+    - aligned
+    - indented
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+Naming/PredicateName:
+  NameWhitelist:
+    - 'has_bank_account'
+    - 'has_changed_logo'
+    - 'has_created_invoice'
+    - 'has_clients?'
+    - 'has_outgoing_invoices?'
+    - 'has_proposals?'
+    - 'has_suppliers?'
+Style/Lambda:
+  EnforcedStyle: literal
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/DateTime:
+  Enabled: false
+Style/EmptyMethod:
+  Enabled: false
