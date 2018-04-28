@@ -32,7 +32,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise'
 gem 'rubocop', '~> 0.54.0', require: false
 
 group :development, :test do
@@ -57,6 +56,7 @@ group :development do
   gem "bullet"
   gem "pry-rails"
   gem 'html2haml'
+  gem 'devise'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
