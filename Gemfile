@@ -57,6 +57,9 @@ group :development do
   gem "pry-rails"
   gem 'html2haml'
   gem 'devise'
+  gem "erb2haml"
+  gem "haml-rails", "~> 1.0"
+  gem "haml"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
