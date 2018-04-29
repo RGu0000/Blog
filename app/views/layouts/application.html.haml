@@ -1,10 +1,35 @@
-!!!
-%html
+%html{:lang => "en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Blog
-    = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title Grayscale - Start Bootstrap Theme
+    / Bootstrap core CSS
+    %link{:href => "vendor/bootstrap/css/bootstrap.min.css", :rel => "stylesheet"}/
+    / Custom fonts for this template
+    %link{:href => "vendor/font-awesome/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Cabin:700", :rel => "stylesheet", :type => "text/css"}/
+    / Custom styles for this template
+    %link{:href => "css/grayscale.min.css", :rel => "stylesheet"}/
+
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+
   %body
-    = yield
+    %p
+      /= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' =&gt; true
+      /= javascript_include_tag 'application', 'data-turbolinks-track' =&gt; true
+      /= csrf_meta_tags
+      / Bootstrap core CSS
+      %link{:href => "vendor/bootstrap/css/bootstrap.min.css", :rel => "stylesheet"}
+      / Custom fonts for this template
+      %link{:href => "vendor/font-awesome/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css"}/
+      %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic", :rel => "stylesheet", :type => "text/css"}/
+      %link{:href => "https://fonts.googleapis.com/css?family=Cabin:700", :rel => "stylesheet", :type => "text/css"}/
+      / Custom styles for this template
+      %link{:href => "css/grayscale.min.css", :rel => "stylesheet"}/
+      = yield
