@@ -1,0 +1,16 @@
+.navbar.navbar-default.navbar-static-top
+  .container
+    = link_to 'Main page', root_path, class: "navbar-brand"
+    /- if user_signed_in?
+    %button.navbar-toggle{:type => "button", :data-toggle => "collapse", :data-target => ".navbar-responsive-collapse"}
+      %span.icon-bar
+      test
+      %span.icon-bar
+      %span.icon-bar
+    .navbar-collapse.collapse.navbar-responsive-collapse
+      %ul.nav.navbar-nav.col-md-6
+        %li= link_to "Articles", articles_path
+      %ul.nav.navbar-right.col-md-4
+        %li.col-md-8.text-right
+          %i.fa.fa-user
+        /%li.col-md-4.logout= link_to("Logout", destroy_user_session_path, class: "btn btn-xs btn-danger", method: :delete)

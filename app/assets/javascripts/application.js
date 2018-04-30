@@ -16,5 +16,3 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree
-//= require bootstrap-sprockets
-//= clean-blog.min
