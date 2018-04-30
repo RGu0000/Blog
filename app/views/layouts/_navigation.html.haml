@@ -1,16 +1,13 @@
-.navbar.navbar-default.navbar-static-top
-  .container
-    = link_to 'Main page', root_path, class: "navbar-brand"
-    /- if user_signed_in?
-    %button.navbar-toggle{:type => "button", :data-toggle => "collapse", :data-target => ".navbar-responsive-collapse"}
-      %span.icon-bar
-      test
-      %span.icon-bar
-      %span.icon-bar
-    .navbar-collapse.collapse.navbar-responsive-collapse
-      %ul.nav.navbar-nav.col-md-6
+%nav.navbar.navbar-default{:role => "navigation"}
+  .container-fluid
+    .navbar-header
+      .navbar-brand= link_to "BLOG", root_path
+      %ul.nav.navbar-nav
+        %li= link_to "Users", users_path
         %li= link_to "Articles", articles_path
-      %ul.nav.navbar-right.col-md-4
-        %li.col-md-8.text-right
-          %i.fa.fa-user
-        /%li.col-md-4.logout= link_to("Logout", destroy_user_session_path, class: "btn btn-xs btn-danger", method: :delete)
+        -if user_signed_in?
+          %li= link_to current_user.email.capitalize, user_path(current_user), class: "user-navbar"
+          %li= link_to "Logout", destroy_user_session_path, method: :delete
+        -if !user_signed_in?
+          %li= link_to "Login", new_user_session_path
+          %li= link_to "Sign in", new_user_registration_path

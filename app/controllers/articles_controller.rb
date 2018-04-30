@@ -9,7 +9,6 @@ class ArticlesController < ApplicationController
     @article.update_attributes(article_params)
     if @article.save
       flash[:notice] = 'You have added a new article.'
-      redirect_to articles_path
     else
       flash[:danger] = 'Failed to add new article.'
     end
