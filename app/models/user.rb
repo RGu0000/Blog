@@ -3,4 +3,5 @@ class User < ApplicationRecord
         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :articles, foreign_key: 'author_id'
+  validates :email, presence: true
 end

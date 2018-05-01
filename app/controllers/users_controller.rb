@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # def create
-  #   @user = User.new
-  # end
+  def index
+    @users = User.all
+  end
 end
