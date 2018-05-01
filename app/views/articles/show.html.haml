@@ -1,4 +1,13 @@
 %h1= @article.title
 %p= @article.body
+%br
+%p
+  This article has following tags added:
+|
+- @article.tags.each do |tag|
+  = link_to "##{tag.name}", tag_path(tag)
+  |
+%br
+%br
 = link_to "Back to all articles", articles_path, class: "new article"
 = link_to "Delete this article", article_path(@article), class: "delete article", method: :delete, data: {confirm: "U sure?"}

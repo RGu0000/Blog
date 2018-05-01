@@ -10,9 +10,11 @@
     = f.label :body
     = f.text_field :body
   %p
-    = f.select :body, (1..5).to_a
+    /= f.select :body, (1..6).to_a
   %p
     = f.collection_select(:author_id, User.all, :id, :email)
-
+  %p
+    = f.label :tag_list
+    = f.text_field :tag_list
   %p
     = f.submit

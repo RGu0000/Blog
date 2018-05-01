@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+  resources :tags, only: %i[show index]
   resources :users
   resources :articles
   root 'articles#index'

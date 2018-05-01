@@ -4,13 +4,14 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new
-    @article.author_id = 2
-    @article.update_attributes(article_params)
+    @article = Article.new(article_params)
+
     if @article.save
       flash[:notice] = 'You have added a new article.'
+      redirect_to(@article)
     else
       flash[:danger] = 'Failed to add new article.'
+      render :new
     end
   end
 
@@ -30,6 +31,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:body, :title)
+    params.require(:article).permit(:body, :title, :tag_list, :user_id, :author_id)
   end
 end
