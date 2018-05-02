@@ -31,6 +31,7 @@ gem 'therubyracer'
 gem 'less-rails-bootstrap'
 gem 'jquery-easing-rails'
 gem 'font-awesome-sass', '~> 5.0.6'
+gem 'draper'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

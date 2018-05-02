@@ -7,6 +7,7 @@
 - @article.tags.each do |tag|
   = link_to "##{tag.name}", tag_name_path(tag.name)
   |
+= @article.all_tags
 %br
 %br
 = link_to "Back to all articles", articles_path, class: "new article"
