@@ -1,0 +1,6 @@
+%h1
+= "List of articles tagged with ##{@tag.name}:"
+%ul
+- @tag.articles.each do |article|
+  %li
+    =link_to "#{article.title}", article_path(article)

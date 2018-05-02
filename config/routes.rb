@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'startup/index'
+  get 'tags/:name', to: 'tags#show_name', as: "tag_name"
 
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :tags, only: %i[show index]
+  resources :tags, only: %i[index]
   resources :users
   resources :articles
   root 'articles#index'
