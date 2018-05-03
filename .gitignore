@@ -15,5 +15,6 @@
 
 /node_modules
 /yarn-error.log
-
+# Ignore simple cov directory
+coverage
 .byebug_history
