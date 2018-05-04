@@ -5,17 +5,13 @@
         %li
           = error
   %p
-    = f.label :title
+    = f.label :title, "Article title:"
     = f.text_field :title
   %p
-    = f.label :body
+    = f.label :body, "Body of the article:"
     = f.text_area :body, size: "150 x 20"
   %p
-    /= f.select :body, (1..6).to_a
-  %p
-    = f.collection_select(:author_id, User.all, :id, :email)
-  %p
-    = f.label :tag_list
+    = f.label :tag_list, "Specify article tags:"
     = f.text_field :tag_list
   %p
     = f.submit

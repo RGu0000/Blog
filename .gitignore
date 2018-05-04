@@ -18,3 +18,6 @@
 # Ignore simple cov directory
 coverage
 .byebug_history
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

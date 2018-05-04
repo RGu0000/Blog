@@ -5,10 +5,12 @@
   This article has following tags added:
 |
 - @article.tags.each do |tag|
-  = link_to "##{tag.name}", tag_name_path(tag.name)
+  = link_to "##{tag}", tag_name_path(tag.name)
   |
-= @article.all_tags
 %br
 %br
 = link_to "Back to all articles", articles_path, class: "new article"
+|
+= link_to "Edit this article", article_path(@article), class: "edit article"
+|
 = link_to "Delete this article", article_path(@article), class: "delete article", method: :delete, data: {confirm: "U sure?"}

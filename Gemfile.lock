@@ -109,6 +109,9 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
+    faraday (0.15.0)
+      multipart-post (>= 1.2, < 3)
+    ffaker (2.9.0)
     ffi (1.9.23)
     font-awesome-sass (5.0.6.2)
       sass (>= 3.2)
@@ -164,6 +167,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multipart-post (2.0.0)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -322,6 +326,8 @@ DEPENDENCIES
   draper
   erb2haml
   factory_bot_rails
+  faraday
+  ffaker
   font-awesome-sass (~> 5.0.6)
   haml
   haml-rails (~> 1.0)
