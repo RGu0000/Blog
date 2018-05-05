@@ -11,7 +11,7 @@
 %br
 
 = link_to "Back to all articles", articles_path, class: "new article"
--if @article.author_id == current_user.id
+-if current_user.present? && @article.author_id == current_user.id
   |
   = link_to "Edit this article", edit_article_path(@article), class: "edit article"
   |

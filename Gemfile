@@ -36,6 +36,10 @@ gem 'ffaker'
 gem 'devise'
 # HTTP Client
 gem 'faraday'
+gem 'html2haml'
+gem "haml-rails", "~> 1.0"
+gem "haml"
+gem "erb2haml"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -54,12 +58,13 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'factory_bot_rails'
-end
-
-group :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'simplecov', require: false
 end
+
+# group :test do
+#
+# end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -72,11 +77,8 @@ group :development do
   gem "binding_of_caller"
   gem "bullet"
   gem "pry-rails"
-  gem 'html2haml'
 
-  gem "erb2haml"
-  gem "haml-rails", "~> 1.0"
-  gem "haml"
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

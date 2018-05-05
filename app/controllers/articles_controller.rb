@@ -1,8 +1,10 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_user, only: %i[destroy edit]
+
   def index
     @articles = Article.all
+    render :index
   end
 
   def show
@@ -21,13 +23,13 @@ class ArticlesController < ApplicationController
       redirect_to(@article)
     else
       flash[:danger] = 'Failed to add new article.'
-      render :new
+      # render :new
     end
-    HerokuBlogpost::Creator.new(
-      title: 'Hi!',
-      categories: 'Computer, Friends',
-      content: 'Blog post content'
-    ).call
+    # HerokuBlogpost::Creator.new(
+    #   title: 'Hi!',
+    #   categories: 'Computer, Friends',
+    #   content: 'Blog post content'
+    # ).call
   end
 
   def edit; end
@@ -46,10 +48,6 @@ class ArticlesController < ApplicationController
   def destroy
     flash[:success] = 'Article deleted' if @article.destroy
     redirect_to articles_path
-  end
-
-  def create_heroku_post(body)
-    HerokuBlogpost::Creator.new
   end
 
   private

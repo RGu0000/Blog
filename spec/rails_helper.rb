@@ -5,6 +5,8 @@ require 'rspec/rails'
 require 'simplecov'
 require 'pry'
 require 'devise'
+require 'haml'
+
 
 SimpleCov.start do
   add_filter "/config/"
