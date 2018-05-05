@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_user, only: %i[create destroy edit]
+  before_action :set_user, only: %i[destroy edit]
   def index
     @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id]).decorate
   end
 
   def new
@@ -19,29 +23,49 @@ class ArticlesController < ApplicationController
       flash[:danger] = 'Failed to add new article.'
       render :new
     end
+    HerokuBlogpost::Creator.new(
+      title: 'Hi!',
+      categories: 'Computer, Friends',
+      content: 'Blog post content'
+    ).call
   end
 
-  def edit
+  def edit; end
 
+  def update
+    @article = Article.find(params[:id])
+    @article.update_attributes(article_params)
+    if @article.save
+      redirect_to article_path(@article)
+      flash[:success] = 'Article updated'
+    else
+      flash[:error] = 'Article updated'
+    end
   end
 
   def destroy
-    @article = Article.find(params[:id]).destroy
+    flash[:success] = 'Article deleted' if @article.destroy
     redirect_to articles_path
   end
 
-  def show
-    @article = Article.find(params[:id]).decorate
+  def create_heroku_post(body)
+    HerokuBlogpost::Creator.new
   end
 
   private
 
   def article_params
     params.require(:article)
-          .permit(:body, :title, :tag_list, :user_id)
+          .permit(:body, :title, :tag_list)
+          .merge(author_id: current_user.id)
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @article = Article.find(params[:id])
+    if current_user.id == @article.author_id
+      @author = current_user
+    else
+      redirect_to article_path(@article), message: 'You can\'t do that'
+    end
   end
 end

@@ -3,4 +3,5 @@
   - @articles.each do |article|
     %li
       = link_to article.title, article_path(article)
-= link_to "Create a new article", new_article_path, class: "new article"
+-if user_signed_in?
+  = link_to "Create a new article", new_article_path, class: "new article"

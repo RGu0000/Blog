@@ -2,15 +2,17 @@
 %p= @article.body
 %br
 %p
-  This article has following tags added:
+  The following tags were added to this article:
 |
 - @article.tags.each do |tag|
   = link_to "##{tag}", tag_name_path(tag.name)
   |
 %br
 %br
+
 = link_to "Back to all articles", articles_path, class: "new article"
-|
-= link_to "Edit this article", article_path(@article), class: "edit article"
-|
-= link_to "Delete this article", article_path(@article), class: "delete article", method: :delete, data: {confirm: "U sure?"}
+-if @article.author_id == current_user.id
+  |
+  = link_to "Edit this article", edit_article_path(@article), class: "edit article"
+  |
+  = link_to "Delete this article", article_path(@article), class: "delete article", method: :delete, data: {confirm: "U sure?"}

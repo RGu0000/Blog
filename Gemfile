@@ -33,7 +33,7 @@ gem 'jquery-easing-rails'
 gem 'font-awesome-sass', '~> 5.0.6'
 gem 'draper'
 gem 'ffaker'
-
+gem 'devise'
 # HTTP Client
 gem 'faraday'
 
@@ -53,9 +53,12 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'factory_bot_rails'
+end
+
+group :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'simplecov', require: false
-  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -70,7 +73,7 @@ group :development do
   gem "bullet"
   gem "pry-rails"
   gem 'html2haml'
-  gem 'devise'
+
   gem "erb2haml"
   gem "haml-rails", "~> 1.0"
   gem "haml"
