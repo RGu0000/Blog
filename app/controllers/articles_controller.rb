@@ -3,8 +3,7 @@ class ArticlesController < ApplicationController
   before_action :set_user, only: %i[destroy edit]
 
   def index
-    @articles = Article.all
-    render :index
+    @articles = Article.paginate(page: params[:page], per_page: 25)
   end
 
   def show
@@ -23,7 +22,7 @@ class ArticlesController < ApplicationController
       redirect_to(@article)
     else
       flash[:danger] = 'Failed to add new article.'
-      # render :new
+      render :new
     end
     # HerokuBlogpost::Creator.new(
     #   title: 'Hi!',
@@ -41,13 +40,19 @@ class ArticlesController < ApplicationController
       redirect_to article_path(@article)
       flash[:success] = 'Article updated'
     else
-      flash[:error] = 'Article updated'
+      flash[:error] = 'Failed to update the article'
+      render :edit
     end
   end
 
   def destroy
-    flash[:success] = 'Article deleted' if @article.destroy
-    redirect_to articles_path
+    if @article.destroy
+      flash[:success] = 'Article deleted'
+      redirect_to articles_path
+    else
+      flash[:error] = 'Failed to delete the article'
+      redirect_to article_path(@article)
+    end
   end
 
   private

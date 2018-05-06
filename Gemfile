@@ -37,9 +37,10 @@ gem 'devise'
 # HTTP Client
 gem 'faraday'
 gem 'html2haml'
-gem "haml-rails", "~> 1.0"
-gem "haml"
+gem 'haml-rails', "~> 1.0"
+gem 'haml'
 gem "erb2haml"
+gem 'will_paginate', '~> 3.1.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -60,6 +61,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 # group :test do

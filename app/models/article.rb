@@ -4,6 +4,7 @@ class Article < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   validates :title, presence: true
+  validates :body, presence: true
   validates :tags, presence: true
   validates_with ArticleBodyValidator
   # validates :body, numericality: {greater_than_or_equal_to: 1, less_than_or_equal_to: 5}
