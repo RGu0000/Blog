@@ -1,0 +1,9 @@
+%h1 All Articles
+= will_paginate
+%ul{id: "articles"}
+  - @articles.each do |article|
+    %li
+      = link_to article.title, article_path(article)
+= will_paginate
+-if user_signed_in?
+  = link_to "Create a new article", new_article_path, class: "new article"

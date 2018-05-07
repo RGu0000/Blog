@@ -15,5 +15,12 @@
 
 /node_modules
 /yarn-error.log
+# Ignore simple cov directory
+/coverage/
+/coverage
+coverage/
 
 .byebug_history
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

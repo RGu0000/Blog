@@ -5,3 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+%w[Riczi Luke Han Leia Golum Frodo Gandalf Sauron].map do |name|
+  User.create(
+    email: "#{name}@mail.com",
+    name: name,
+    password: "password"
+  )
+end
+
+15.times do |i|
+  Tag.create(name: FFaker::BaconIpsum.word + i.to_s)
+end
+
+150.times do |index|
+  Article.create(
+    title: FFaker::BaconIpsum.sentence,
+    body: FFaker::BaconIpsum.paragraph,
+    author_id: User.all.sample.id,
+    tags: Tag.all.sample(rand(1..6))
+  )
+end

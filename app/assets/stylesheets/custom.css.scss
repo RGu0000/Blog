@@ -1,0 +1,18 @@
+.navbar-brand {
+position: absolute;
+          top: 50%;
+          left: 10%;
+          transform: translate(-50%, -50%)
+}
+
+.navbar-nav {
+position: absolute;
+          top: 50%;
+          right: 0%;
+          transform: translate(-50%, -50%)
+}
+
+.user-navbar {
+  font-weight: bold;
+  font-size: 1.15em;
+}
