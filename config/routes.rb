@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :tags, only: %i[index]
-  resources :users
+  resources :users, only: %i[index show]
   resources :articles
   root 'articles#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

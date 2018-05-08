@@ -49,6 +49,7 @@ class ArticlesController < ApplicationController
     if @article.destroy
       flash[:success] = 'Article deleted'
       redirect_to articles_path
+      TagServices::OrphanTagDestroyer.call
     else
       flash[:error] = 'Failed to delete the article'
       redirect_to article_path(@article)

@@ -1,0 +1,9 @@
+%h1 Welcome #{@user.displayed_name}!
+=render 'article_list'
+%br
+%br
+=link_to "Edit your account", edit_user_registration_path(@user)
+%br
+%h4 Cancel my account
+%p
+Unhappy? #{button_to "Delete my account", registration_path(@user), data: { confirm: "Are you sure?" }, method: :delete}
