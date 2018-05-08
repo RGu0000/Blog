@@ -3,6 +3,8 @@ class Article < ApplicationRecord
   belongs_to :author, class_name: 'User'
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many :comments
+
   validates :title, presence: true
   validates :body, presence: true
   validates :tags, presence: true
