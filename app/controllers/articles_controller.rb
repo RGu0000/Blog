@@ -7,7 +7,9 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    # binding.pry
     @article = Article.find(params[:id]).decorate
+    @comments = @article.comments
     @comment = Comment.new
   end
 

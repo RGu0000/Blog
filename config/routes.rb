@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :tags, only: %i[index]
   resources :users, only: %i[index show]
   resources :articles do
-    resources :comments, only: %i[create destroy]
+    resources :comments, only: %i[create destroy edit]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

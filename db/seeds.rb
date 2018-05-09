@@ -26,3 +26,12 @@ end
     tags: Tag.all.sample(rand(1..6))
   )
 end
+
+5.times do |i|
+  Comment.create(
+    body: FFaker::Lorem.sentence
+    article_id: 1
+    user_id: 1
+    parent_id: i + 1
+  )
+end
