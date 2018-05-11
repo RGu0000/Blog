@@ -1,14 +1,17 @@
 class CommentsController < ApplicationController
-  before_action :set_article, only: %i[create destroy]
+  before_action :set_article, only: %i[new create destroy]
+  def new
+    @comment = @article.comments.new(parent_id: params[:parent_id])
+  end
 
   def create
     @comment = @article.comments.new(comment_params)
-    @comments = @article.comments
+    @comments = @article.comments.includes(:author, :children).hash_tree
+
     if @comment.save
       flash[:notice] = 'Comment added'
       redirect_to @article
     else
-      # render :edit
       render 'articles/show', object: @comments
     end
 
@@ -22,7 +25,6 @@ class CommentsController < ApplicationController
     #     format.json { render json: @article.errors, status: :unprocessable_entity }
     #   end
     # end
-
   end
 
   def edit
@@ -30,12 +32,14 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = @article.comments.find(params[:id])
+    comment = Comment.find(params[:id])
+
     if comment.author_id == current_user.id && comment.destroy
       flash[:notice] = 'Comment successfully deleted!'
     else
       flash[:danger] = 'Failed to delete a comment. Try again.'
     end
+
     redirect_to @article
   end
 
@@ -47,7 +51,7 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment)
-          .permit(:body)
+          .permit(:body, :parent_id)
           .merge(author_id: current_user.id)
   end
 end

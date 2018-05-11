@@ -27,11 +27,17 @@ end
   )
 end
 
+Comment.create(
+  body: FFaker::Lorem.sentence,
+  article_id: 1,
+  author_id: 1
+)
+
 5.times do |i|
   Comment.create(
-    body: FFaker::Lorem.sentence
-    article_id: 1
-    user_id: 1
+    body: FFaker::Lorem.sentence,
+    article_id: 1,
+    author_id: 1,
     parent_id: i + 1
   )
 end

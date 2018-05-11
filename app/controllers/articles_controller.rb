@@ -7,9 +7,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    # binding.pry
     @article = Article.find(params[:id]).decorate
-    @comments = @article.comments
+    @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
   end
 
@@ -39,6 +38,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(article_params)
+
     if @article.save
       redirect_to article_path(@article)
       flash[:success] = 'Article updated'
@@ -69,6 +69,7 @@ class ArticlesController < ApplicationController
 
   def set_user
     @article = Article.find(params[:id])
+
     if current_user.id == @article.author_id
       @author = current_user
     else
