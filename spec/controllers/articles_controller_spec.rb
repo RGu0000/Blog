@@ -41,8 +41,9 @@ RSpec.describe ArticlesController, type: :controller do
           article:
           {
             title: title,
-            body: body
-          }, tags_string: tags_string
+            body: body,
+            tags_string: tags_string
+            }
         }
       end
 
@@ -138,8 +139,9 @@ RSpec.describe ArticlesController, type: :controller do
           article:
           {
             title: title,
-            body: body
-          }, tags_string: tags_string
+            body: body,
+            tags_string: tags_string
+          }
         }
       end
 

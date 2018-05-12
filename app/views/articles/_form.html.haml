@@ -12,8 +12,6 @@
     = f.text_area :body, size: "150 x 20"
   %p
     = f.label :tags_string, "Specify article tags:"
-    = text_field_tag(:tags_string)
-    = f.fields_for :tags do |tag|
-      = tag.text_field :name
+    = f.text_area :tags_string, value: @article.tag_list
   %p
     = f.submit
