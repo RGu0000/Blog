@@ -1,8 +1,10 @@
 %h1 List of all users:
+= will_paginate
 %ul{id: "users"}
   - @users.each do |user|
     %li
       = link_to user.email, user_path(user)
+  = will_paginate
   %br
   -unless user_signed_in?
     %p.text-muted

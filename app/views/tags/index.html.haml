@@ -1,5 +1,7 @@
-%h1 List of all tags:
+%h1 List of all tags (descending by popularity):
+= will_paginate
 %ul
   - @tags.each do |tag|
     %li
-      =link_to "#{tag.name}", tag_name_path("#{tag.name}")
+      =link_to "##{tag.name} -- [#{pluralize(tag.articles.count, 'article')}]", tag_name_path("#{tag.name}")
+= will_paginate

@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_article, only: %i[new create destroy]
+
   def new
     @comment = @article.comments.new(parent_id: params[:parent_id])
   end
