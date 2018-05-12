@@ -5,6 +5,7 @@ RSpec.describe ArticlesController, type: :controller do
 
   let!(:user) { create(:user) }
   let!(:tag) { create(:tag) }
+  let(:tags_string) { 'test tag' }
   let!(:article) { create(:article, tags: [tag], author_id: user.id) }
 
   context 'user logged in' do
@@ -40,9 +41,8 @@ RSpec.describe ArticlesController, type: :controller do
           article:
           {
             title: title,
-            body: body,
-            tag_list: tag
-          }
+            body: body
+          }, tags_string: tags_string
         }
       end
 
@@ -138,9 +138,8 @@ RSpec.describe ArticlesController, type: :controller do
           article:
           {
             title: title,
-            body: body,
-            tag_list: tag
-          }
+            body: body
+          }, tags_string: tags_string
         }
       end
 

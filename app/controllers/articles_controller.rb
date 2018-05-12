@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.tags = ArticleServices::TagsStringParser.new(params[:tags_string]).call
 
     if @article.save
       flash[:notice] = 'You have added a new article.'
@@ -38,6 +39,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(article_params)
+    @article.tags = ArticleServices::TagsStringParser.new(params[:tags_string]).call
 
     if @article.save
       redirect_to article_path(@article)
@@ -63,7 +65,7 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article)
-          .permit(:body, :title, :tag_list)
+          .permit(:body, :title, :tags_string)
           .merge(author_id: current_user.id)
   end
 

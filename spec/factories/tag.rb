@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tag do
-    name { 'random tag' }
+    name { 'random_tag' }
 
     trait :orphan_tag do
       name { 'orphan_tag' }
