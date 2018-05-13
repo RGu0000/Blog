@@ -13,17 +13,15 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article_form = ArticleForm.new
   end
 
   def create
-    @article = Article.new(article_params)
-    update_tags
+    @article_form = ArticleForm.new
 
-
-    if @article.save
+    if @article_form.submit(article_params)
       flash[:notice] = 'You have added a new article.'
-      redirect_to(@article)
+      redirect_to @article_form.article
     else
       flash[:danger] = 'Failed to add new article.'
       render :new
@@ -35,16 +33,20 @@ class ArticlesController < ApplicationController
     # ).call
   end
 
-  def edit; end
+  def edit
+    @article = Article.find(params[:id])
+    @article_form = ArticleForm.new
+    @article_form.article = @article
+  end
 
   def update
     @article = Article.find(params[:id])
-    @article.update_attributes(article_params)
-    update_tags
+    @article_form = ArticleForm.new(article: @article)
+    @article_form.article = @article
 
-    if @article.save
-      redirect_to article_path(@article)
+    if @article_form.submit(article_params)
       flash[:success] = 'Article updated'
+      redirect_to @article_form.article
     else
       flash[:error] = 'Failed to update the article'
       render :edit
@@ -66,7 +68,7 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article)
-          .permit(:body, :title)
+          .permit(:body, :title, :tags_string)
           .merge(author_id: current_user.id)
   end
 

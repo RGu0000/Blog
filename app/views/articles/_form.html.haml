@@ -1,7 +1,7 @@
-= form_for(@article) do |f|
-  - if @article.errors.any?
+= form_for @article_form, url: articles_path, as: :articl do |f|
+  - if @article_form.errors.any?
     %ul
-      - @article.errors.full_messages.each do |error|
+      - @article_form.errors.full_messages.each do |error|
         %li
           = error
   %p
@@ -12,6 +12,6 @@
     = f.text_area :body, size: "150 x 20"
   %p
     = f.label :tags_string, "Specify article tags:"
-    = f.text_area :tags_string, value: @article.tag_list
+    = f.text_area :tags_string, value: @article_form.all_tags
   %p
     = f.submit
