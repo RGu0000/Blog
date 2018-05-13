@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
   def create
     @article_form = ArticleForm.new
 
-    if @article_form.submit(article_params)
+    if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
     else
@@ -34,7 +34,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
     @article_form = ArticleForm.new
     @article_form.article = @article
   end
@@ -79,15 +78,6 @@ class ArticlesController < ApplicationController
       @author = current_user
     else
       redirect_to article_path(@article), message: 'You can\'t do that'
-    end
-  end
-
-  def update_tags
-    tag_params = params[:article][:tags_string]
-
-    if tag_params.present?
-    @article.tags = ArticleServices::TagsStringParser.new(tag_params)
-                                                     .call
     end
   end
 end

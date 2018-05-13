@@ -1,13 +1,14 @@
 class ArticleForm
   include ActiveModel::Model
-  delegate :title, :body, :author_id, :tags, :tags_string, to: :article
-  attr_accessor :article
+  delegate :title, :body, :author_id, :tags, to: :article
+  attr_accessor :article, :tags_string
+  validates_presence_of :body
 
-  def article
+  def initialize
     @article ||= Article.new
   end
 
-  def submit(params)
+  def save(params)
     article.attributes = params.slice('title', 'body', 'author_id')
     article.tags = tag_list(params[:tags_string])
 
@@ -20,7 +21,7 @@ class ArticleForm
   end
 
   def tag_list(tags_string)
-    tags_string.split(/\W/)
+    tags_string.scan(/\w+/)
                .map(&:downcase)
                .uniq
                .map { |name| Tag.find_or_create_by(name: name) }
@@ -30,7 +31,4 @@ class ArticleForm
     return tags.collect(&:name).join(', ') if tags.present?
     ''
   end
-
-
-
 end

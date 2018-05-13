@@ -1,17 +1,5 @@
-= form_for @article_form, url: articles_path, as: :articl do |f|
-  - if @article_form.errors.any?
-    %ul
-      - @article_form.errors.full_messages.each do |error|
-        %li
-          = error
-  %p
-    = f.label :title, "Article title:"
-    = f.text_field :title
-  %p
-    = f.label :body, "Body of the article:"
-    = f.text_area :body, size: "150 x 20"
-  %p
-    = f.label :tags_string, "Specify article tags:"
-    = f.text_area :tags_string, value: @article_form.all_tags
-  %p
-    = f.submit
+= simple_form_for @article_form, url: articles_path, as: :article do |f|
+  = f.input :title, label: "Article title:"
+  = f.input :body, label: "Body of the article:", as: :text, input_html: { :style => 'height: 200px' }
+  = f.input :tags_string, label: "Tags:", input_html: { value: f.object.all_tags }
+  = f.submit

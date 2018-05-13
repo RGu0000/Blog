@@ -42,6 +42,7 @@ gem 'haml-rails', "~> 1.0"
 gem 'haml'
 gem "erb2haml"
 gem 'will_paginate', '~> 3.1.0'
+gem 'simple_form'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
