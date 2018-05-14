@@ -1,0 +1,6 @@
+%h1 New comment
+
+-if @comment.parent.present?
+  = render 'comment', comment: @comment.parent, from_reply_form: true
+
+= render 'form'

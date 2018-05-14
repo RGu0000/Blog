@@ -5,6 +5,7 @@ RSpec.describe ArticlesController, type: :controller do
 
   let!(:user) { create(:user) }
   let!(:tag) { create(:tag) }
+  let(:tags_string) { 'test tag' }
   let!(:article) { create(:article, tags: [tag], author_id: user.id) }
 
   context 'user logged in' do
@@ -41,8 +42,8 @@ RSpec.describe ArticlesController, type: :controller do
           {
             title: title,
             body: body,
-            tag_list: tag
-          }
+            tags_string: tags_string
+            }
         }
       end
 
@@ -106,7 +107,7 @@ RSpec.describe ArticlesController, type: :controller do
       end
 
       context 'user deletes his article' do
-        let!(:id) { article.id }
+        let(:id) { article.id }
         it { expect { subject }.to change { Article.count }.by(-1) }
         it { should redirect_to(articles_path) }
       end
@@ -114,7 +115,7 @@ RSpec.describe ArticlesController, type: :controller do
       context 'user deletes not his article' do
         let!(:another_user) { create(:user, :other_user) }
         let!(:another_article) { create(:article, tags: [tag], author_id: another_user.id) }
-        let!(:id) { another_article.id }
+        let(:id) { another_article.id }
 
         it { expect { subject }.to change { Article.count }.by(0) }
         it { should redirect_to(article_path(another_article)) }
@@ -139,7 +140,7 @@ RSpec.describe ArticlesController, type: :controller do
           {
             title: title,
             body: body,
-            tag_list: tag
+            tags_string: tags_string
           }
         }
       end

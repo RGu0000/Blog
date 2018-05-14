@@ -1,14 +1,18 @@
 %h1= @article.title
+%h3= "Written by #{@article.author.displayed_name} on #{@article.formatted_created_at}"
 %p= @article.body
-%br
-%p
-  The following tags were added to this article:
-|
-- @article.tags.each do |tag|
-  = link_to "##{tag}", tag_name_path(tag.name)
+
+= comments_tree_for @comments
+
+= render 'comments/form'
+
+.well
+  %p.text-muted
+    The following tags were added to this article:
   |
-%br
-%br
+  - @article.tags.each do |tag|
+    = link_to "##{tag}", tag_name_path(tag.name)
+    |
 
 = link_to "Back to all articles", articles_path, class: "new article"
 -if current_user.present? && @article.author_id == current_user.id

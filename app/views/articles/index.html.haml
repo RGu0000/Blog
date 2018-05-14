@@ -5,5 +5,10 @@
     %li
       = link_to article.title, article_path(article)
 = will_paginate
+%br
 -if user_signed_in?
   = link_to "Create a new article", new_article_path, class: "new article"
+-else
+  .well
+    %p.text-muted
+      Sign in to write articles

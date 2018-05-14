@@ -1,0 +1,19 @@
+.well
+  %p.text-muted
+    = comment.root? ? "Started by" : "Replied by"
+    %strong= comment.author.email
+    on
+    = comment.created_at.strftime('%d.%m.%Y at %k:%M')
+  %blockquote
+    %p= comment.body
+
+  - from_reply_form ||= nil
+  - unless from_reply_form
+    -if user_signed_in? && comment.author_id == current_user.id
+      = link_to "Delete this comment", article_comment_path(comment.article.id, comment.id), class: "delete comment", method: :delete, data: {confirm: "U sure?"}
+      %br
+    - if comment.leaf?
+      %small.text-muted
+        There are no replies yet - be the first one to reply!
+    - if user_signed_in?
+      %p= link_to 'Reply', new_comment_path(comment.article.id, comment.id)
