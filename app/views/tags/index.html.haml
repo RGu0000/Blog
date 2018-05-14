@@ -3,5 +3,5 @@
 %ul
   - @tags.each do |tag|
     %li
-      =link_to "##{tag.name} -- [#{pluralize(tag.articles.count, 'article')}]", tag_name_path("#{tag.name}")
+      =link_to "##{tag.name} -- [#{pluralize(tag.tags_count, 'article')}]", tag_name_path("#{tag.name}")
 = will_paginate

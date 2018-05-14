@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_user, only: %i[destroy edit]
+  before_action :set_user, only: %i[destroy edit update]
 
   def index
     @articles = Article.paginate(page: params[:page], per_page: 25)
@@ -13,12 +13,13 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article_form = ArticleForm.new
+    @article = Article.new
+    @article_form = ArticleForm.new(@article)
   end
 
   def create
-    @article_form = ArticleForm.new
-
+    @article = Article.new
+    @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
@@ -26,25 +27,20 @@ class ArticlesController < ApplicationController
       flash[:danger] = 'Failed to add new article.'
       render :new
     end
-    # HerokuBlogpost::Creator.new(
-    #   title: 'Hi!',
-    #   categories: 'Computer, Friends',
-    #   content: 'Blog post content'
-    # ).call
   end
 
   def edit
-    @article_form = ArticleForm.new
-    @article_form.article = @article
+    @article = Article.find(params[:id])
+    @article_form = ArticleForm.new(@article)
+    # binding.pry
   end
 
   def update
     @article = Article.find(params[:id])
-    @article_form = ArticleForm.new(article: @article)
-    @article_form.article = @article
-
-    if @article_form.submit(article_params)
+    @article_form = ArticleForm.new(@article)
+    if @article_form.save(article_params)
       flash[:success] = 'Article updated'
+      TagServices::OrphanTagDestroyer.call
       redirect_to @article_form.article
     else
       flash[:error] = 'Failed to update the article'
@@ -55,25 +51,24 @@ class ArticlesController < ApplicationController
   def destroy
     if @article.destroy
       flash[:success] = 'Article deleted'
-      redirect_to articles_path
       TagServices::OrphanTagDestroyer.call
+      redirect_to articles_path
     else
       flash[:error] = 'Failed to delete the article'
-      redirect_to article_path(@article)
+      redirect_to @article
     end
   end
 
   private
 
   def article_params
-    params.require(:article)
+    params.require(:article_form)
           .permit(:body, :title, :tags_string)
           .merge(author_id: current_user.id)
   end
 
   def set_user
     @article = Article.find(params[:id])
-
     if current_user.id == @article.author_id
       @author = current_user
     else
