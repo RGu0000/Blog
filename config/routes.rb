@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'articles#index'
 
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'override_devise/registrations'
   }
   resources :tags, only: %i[index]
   resources :users, only: %i[index show]

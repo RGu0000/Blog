@@ -1,25 +1,23 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_user, only: %i[destroy edit update]
+  before_action :set_user_and_article, only: %i[edit update destroy]
 
   def index
     @articles = Article.paginate(page: params[:page], per_page: 25)
   end
 
   def show
-    @article = Article.find(params[:id]).decorate
+    @article = Article.includes(:author).find(params[:id]).decorate
     @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
   end
 
   def new
-    @article = Article.new
-    @article_form = ArticleForm.new(@article)
+    @article_form = ArticleForm.new(Article.new)
   end
 
   def create
-    @article = Article.new
-    @article_form = ArticleForm.new(@article)
+    @article_form = ArticleForm.new(Article.new)
     if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
@@ -30,9 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
     @article_form = ArticleForm.new(@article)
-    # binding.pry
   end
 
   def update
@@ -40,7 +36,7 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
-      TagServices::OrphanTagDestroyer.call
+      TagServices::OrphanTagDestroyer.call(@article.id)
       redirect_to @article_form.article
     else
       flash[:error] = 'Failed to update the article'
@@ -51,7 +47,7 @@ class ArticlesController < ApplicationController
   def destroy
     if @article.destroy
       flash[:success] = 'Article deleted'
-      TagServices::OrphanTagDestroyer.call
+      TagServices::OrphanTagDestroyer.call(@article.id)
       redirect_to articles_path
     else
       flash[:error] = 'Failed to delete the article'
@@ -67,7 +63,7 @@ class ArticlesController < ApplicationController
           .merge(author_id: current_user.id)
   end
 
-  def set_user
+  def set_user_and_article
     @article = Article.find(params[:id])
     if current_user.id == @article.author_id
       @author = current_user

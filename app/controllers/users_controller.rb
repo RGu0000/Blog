@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[edit destroy]
+  # before_action :set_user, only: %i[edit destroy]
 
   def index
     @users = User.all.paginate(page: params[:page], per_page: 25)
@@ -23,10 +23,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-    if user_signed_in? && current_user.id == @user.id
-
-    else
-
-    end
+    # if user_signed_in? && current_user.id == @user.id
   end
 end

@@ -1,6 +1,6 @@
 class ArticleForm
   include ActiveModel::Model
-  delegate :title, :body, :author_id, :tags, :id, :persisted?, to: :article
+  delegate :title, :body, :author_id, :tags, :id, :persisted?, :new_record?, to: :article
   attr_accessor :article
   validates_presence_of :title, :body, :tags
   validate :validate_prohibited_words
