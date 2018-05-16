@@ -24,8 +24,9 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
+    comments = comment.descendants
 
-    if comment.author_id == current_user.id && comment.destroy
+    if comment.author_id == current_user.id && comment.delete && comments.delete_all
       flash[:notice] = 'Comment successfully deleted!'
     else
       flash[:danger] = 'Failed to delete a comment. Try again.'

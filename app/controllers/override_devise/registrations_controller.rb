@@ -1,8 +1,9 @@
 class OverrideDevise::RegistrationsController < Devise::RegistrationsController
   def destroy
-    super
-    if resource.destroy
-      UserServices::OrphanArticleDestroyer.call(resource.id)
+    ApplicationRecord.transaction do
+      UserServices::UserAndAssociationsDestroyer.call(resource.id)
+      TagServices::OrphanTagDestroyer.call
+      super
     end
   end
 end
