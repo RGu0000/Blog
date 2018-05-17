@@ -13,11 +13,11 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article_form = ArticleForm.new(Article.new)
+    @article_form = ArticleForm.new
   end
 
   def create
-    @article_form = ArticleForm.new(Article.new)
+    @article_form = ArticleForm.new
     if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
-      TagServices::OrphanTagDestroyer.call(@article.id)
+      TagServices::OrphanTagDestroyer
       redirect_to @article_form.article
     else
       flash[:error] = 'Failed to update the article'
@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
   def destroy
     if @article.destroy
       flash[:success] = 'Article deleted'
-      TagServices::OrphanTagDestroyer.call(@article.id)
+      TagServices::OrphanTagDestroyer.call
       redirect_to articles_path
     else
       flash[:error] = 'Failed to delete the article'

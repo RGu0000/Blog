@@ -1,5 +1,5 @@
 = simple_form_for @article_form,
-  url: (@article_form.article.new_record? ? articles_path : article_path ) do |f|
+  url: (@article_form.article.new_record? ? articles_path : article_path(@article_form.article) ) do |f|
   = f.input :title, label: "Article title:"
   = f.input :body, label: "Body of the article:", as: :text, input_html: { :style => 'height: 200px' }
   = f.input :tags_string, label: "Tags:", input_html: { value: f.object.all_tags }

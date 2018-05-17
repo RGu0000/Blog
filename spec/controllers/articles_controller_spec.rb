@@ -29,7 +29,20 @@ RSpec.describe ArticlesController, type: :controller do
 
       it 'creates new instance of Article' do
         subject
-        expect(assigns[:article]).to be_a(Article)
+        expect(assigns[:article_form]).to be_a(ArticleForm)
+      end
+
+      it { expect(subject.status).to eq(200) }
+    end
+
+    describe 'GET articles#edit' do
+      subject { get :edit, params: { id: Article.first.id } }
+
+      it 'creates new instance of Article' do
+        binding.pry
+        subject
+        expect(assigns[:article_form]).to be_a(ArticleForm)
+        expect(assigns[:article_form].article.id).to eq(article.id)
       end
 
       it { expect(subject.status).to eq(200) }
@@ -38,12 +51,12 @@ RSpec.describe ArticlesController, type: :controller do
     describe 'POST artictles#create' do
       subject do
         post :create, params: {
-          article:
+          article_form:
           {
             title: title,
             body: body,
             tags_string: tags_string
-            }
+          }
         }
       end
 
@@ -55,7 +68,8 @@ RSpec.describe ArticlesController, type: :controller do
 
         it 'redirects to new article' do
           subject
-          expect(response).to redirect_to assigns[:article]
+          # binding.pry
+          expect(response).to redirect_to (assigns[:article_form].article)
         end
       end
 
@@ -71,9 +85,11 @@ RSpec.describe ArticlesController, type: :controller do
     describe 'PATCH articles#update' do
       subject do
         patch :update, params: {
-          article:
+          article_form:
           {
-            title: updated_title
+            title: updated_title,
+            body: article.body,
+            tags_string: tags_string
           }, id: article.id
         }
       end
@@ -120,15 +136,6 @@ RSpec.describe ArticlesController, type: :controller do
         it { expect { subject }.to change { Article.count }.by(0) }
         it { should redirect_to(article_path(another_article)) }
       end
-
-      # context 'deleting fails ---???????????????????????????????????????' do
-      #   let!(:another_user) { create(:user, :other_user) }
-      #   let!(:another_article) { create(:article, tags: [tag], author_id: another_user.id) }
-      #   let!(:id) { 10 }
-      #
-      #   it { expect { subject }.to change { Article.count }.by(0) }
-      #   it { should redirect_to(article_path(another_article)) }
-      # end
     end
   end
 
@@ -136,7 +143,7 @@ RSpec.describe ArticlesController, type: :controller do
     describe 'POST articles#create' do
       subject do
         post :create, params: {
-          article:
+          article_form:
           {
             title: title,
             body: body,

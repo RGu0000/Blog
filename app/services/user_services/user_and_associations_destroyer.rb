@@ -13,7 +13,7 @@ module UserServices
       Comment.includes(:descendant_hierarchies)
              .where(author_id: user_id)
              .each do |comment|
-               comments << comment.self_and_descendants.map(&:id)
+               comment.self_and_descendants.map(&:id)
              end
       Comment.where(id: comments).delete_all
     end
