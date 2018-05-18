@@ -6,6 +6,7 @@ require 'simplecov'
 require 'pry'
 require 'devise'
 require 'haml'
+require 'closure_tree/test/matcher'
 
 
 SimpleCov.start do
@@ -31,6 +32,19 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+# Configures shoulda-matchers
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    # Choose one or more libraries:
+    with.library :active_record
+    with.library :active_model
+    with.library :action_controller
+    # Or, choose the following (which implies all of the above):
+    with.library :rails
+  end
+end
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

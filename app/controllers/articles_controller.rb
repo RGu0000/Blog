@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
-      TagServices::OrphanTagDestroyer
+      TagServices::OrphanTagDestroyer.call
       redirect_to @article_form.article
     else
       flash[:error] = 'Failed to update the article'

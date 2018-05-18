@@ -6,7 +6,8 @@ RSpec.describe ArticlesController, type: :controller do
   let!(:user) { create(:user) }
   let!(:tag) { create(:tag) }
   let(:tags_string) { 'test tag' }
-  let!(:article) { create(:article, tags: [tag], author_id: user.id) }
+  let!(:article) { create(:article, :with_comments, tags: [tag], author_id: user.id) }
+
 
   context 'user logged in' do
     before { sign_in(user) }
@@ -19,31 +20,25 @@ RSpec.describe ArticlesController, type: :controller do
     end
 
     describe 'GET articles#show' do
-      subject { get :show, params: { id: Article.first.id } }
+      subject! { get :show, params: { id: Article.first.id } }
 
       it { expect(subject.status).to eq(200) }
+      it { expect(assigns[:article].comments.count).to eq(Comment.count) }
     end
 
     describe 'GET articles#new' do
-      subject { get :new }
+      subject! { get :new }
 
-      it 'creates new instance of Article' do
-        subject
-        expect(assigns[:article_form]).to be_a(ArticleForm)
-      end
-
+      it { expect(assigns[:article_form]).to be_a(ArticleForm) }
       it { expect(subject.status).to eq(200) }
     end
 
     describe 'GET articles#edit' do
-      subject { get :edit, params: { id: Article.first.id } }
+      subject! { get :edit, params: { id: Article.first.id } }
 
-      it 'creates new instance of Article' do
-        binding.pry
-        subject
-        expect(assigns[:article_form]).to be_a(ArticleForm)
-        expect(assigns[:article_form].article.id).to eq(article.id)
-      end
+      it { expect(assigns[:article_form]).to be_a(ArticleForm) }
+      it { expect(assigns[:article_form].article.id).to eq(article.id) }
+
 
       it { expect(subject.status).to eq(200) }
     end
@@ -68,7 +63,6 @@ RSpec.describe ArticlesController, type: :controller do
 
         it 'redirects to new article' do
           subject
-          # binding.pry
           expect(response).to redirect_to (assigns[:article_form].article)
         end
       end
@@ -107,10 +101,12 @@ RSpec.describe ArticlesController, type: :controller do
 
       context 'user uses invalid data' do
         let(:updated_title) { '' }
+
         it 'fails to update the title' do
           subject
           expect(Article.last.title).not_to eq(updated_title)
         end
+
         it { should render_template 'articles/edit' }
       end
     end
