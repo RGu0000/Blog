@@ -32,7 +32,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
     @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
