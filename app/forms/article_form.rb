@@ -7,6 +7,10 @@ class ArticleForm
   validates_length_of :body, within: 8..2048
   validate :validate_prohibited_words
 
+  def self.model_name
+    ActiveModel::Name.new(self, nil, 'Article')
+  end
+
   def initialize(article = Article.new)
     @article = article
   end
@@ -38,9 +42,7 @@ class ArticleForm
   private
 
   def assign_params_to_article(params)
-    @article.title = params[:title]
-    @article.body = params[:body]
-    @article.author_id = params[:author_id]
+    @article.attributes = params.except(:tags_string)
     @article.tags = tag_list(params[:tags_string])
   end
 

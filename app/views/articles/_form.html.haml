@@ -1,4 +1,3 @@
-/- require 'pry'; binding.pry
 = simple_form_for @article_form,
   url: (@article_form.article.new_record? ? articles_path : article_path(@article_form.article) ) do |f|
   = f.input :title, label: "Article title:"

@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_user_and_article, only: %i[edit update destroy]
+  before_action :set_new_article_form, only: %i[new create]
 
   def index
     @articles = Article.paginate(page: params[:page], per_page: 25)
@@ -12,12 +13,9 @@ class ArticlesController < ApplicationController
     @comment = Comment.new
   end
 
-  def new
-    @article_form = ArticleForm.new
-  end
+  def new; end
 
   def create
-    @article_form = ArticleForm.new
     if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
@@ -27,12 +25,9 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article_form = ArticleForm.new(@article)
-  end
+  def edit; end
 
   def update
-    @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
       TagServices::OrphanTagDestroyer.call
@@ -57,13 +52,18 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article_form)
+    params.require(:article)
           .permit(:body, :title, :tags_string)
           .merge(author_id: current_user.id)
   end
 
+  def set_new_article_form
+    @article_form = ArticleForm.new
+  end
+
   def set_user_and_article
     @article = Article.find(params[:id])
+    @article_form = ArticleForm.new(@article)
     if current_user.id == @article.author_id
       @author = current_user
     else
