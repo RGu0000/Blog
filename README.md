@@ -42,5 +42,4 @@ $ rails s
 
 Enjoy!
 
-* Ruby version:
-* Rails version:
+* Rails version: 5.1.5
