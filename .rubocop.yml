@@ -28,6 +28,7 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
+    - 'spec/**/*'
     - 'Gemfile'
     - 'Guardfile'
     - 'Capfile'

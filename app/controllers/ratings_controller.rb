@@ -6,10 +6,10 @@ class RatingsController < ApplicationController
     @rating = @article.ratings.new(rating_params)
     if @rating.save
       flash[:notice] = 'Rating added'
-      redirect_to article_path(@article)
     else
       flash[:danger] = 'Failed to add a rating'
     end
+    redirect_to article_path(@article)
   end
 
   def update
