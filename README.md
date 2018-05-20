@@ -5,7 +5,8 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version:
+* Rails version:
 
 * System dependencies
 
@@ -25,9 +26,9 @@ Things you may want to cover:
 * Service objects, form objects, queries
 * Decorators, pagination
 * Customizing devise action
-* Preventing N+1 queries - with Bullet gem and with custom SQL queries for more complicated associations (e.g. deleting the User, his comments, articles, its comments, taggings and tags if there are no more articles assigned to it)
-* RSpec - almost 100% of code according to Simplecov gem - exact value depends on the current stage of implementing new features (including controllers, models, queries, services, form objects, decorators) - with usage of mocks/stubs and factories
-* Code refactoring (to follow the principle of 'DRY')
+* Preventing N+1 queries - with Bullet gem as a reminder/helper to use eager loading and with custom SQL queries for more complicated associations (e.g. deleting the User, his comments, articles, its comments, taggings and tags if there are no more articles assigned to it)
+* RSpec - almost 100% of code according to Simplecov gem is covered (including controllers, models, queries, services, form objects, decorators) - exact value depends on the current stage of implementing new features - with usage of mocks/stubs and factories
+* Code refactoring (to follow the principle of 'DRY' and meet Rubocop's requirements)
 * Debugging, debugging, debugging
 
 ## How to start
