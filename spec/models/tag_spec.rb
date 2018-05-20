@@ -12,7 +12,8 @@ RSpec.describe Tag, type: :model do
 
   describe '.to_s' do
     before { create(:tag, :with_1_article_and_user) }
+    subject { Tag.first.to_s }
 
-    it { expect(Tag.first.to_s).to eq(Tag.first.name) }
+    it { is_expected.to eq(Tag.first.name) }
   end
 end
