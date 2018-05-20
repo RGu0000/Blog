@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180520102529) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.decimal "rating", precision: 3, scale: 1
+    t.decimal "rate", precision: 3, scale: 1
     t.integer "author_id", null: false
     t.integer "article_id", null: false
     t.datetime "created_at", null: false
