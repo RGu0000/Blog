@@ -11,6 +11,12 @@ class ArticlesController < ApplicationController
     @article = Article.includes(:author).find(params[:id]).decorate
     @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
+    # binding.pry
+    if @rating = @article.ratings.find_by(author_id: current_user)
+    else
+      @rating = @article.ratings.new
+    end
+    # @rating = Rating.find_or_create_by(article_id: @article.id, author_id: current_user.id)
   end
 
   def new; end
