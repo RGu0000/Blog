@@ -1,10 +1,6 @@
 FactoryBot.define do
   factory :tag do
-    name { 'random_tag' }
-
-    trait :orphan_tag do
-      name { 'orphan_tag' }
-    end
+    sequence(:name) { |n| "Tag#{n}" }
 
     trait :with_1_article_and_user do
       after(:create) do |tag|
@@ -17,6 +13,13 @@ FactoryBot.define do
       after(:create) do |tag|
         create :user
         create_list :article, 2, tags: [tag], author_id: User.first.id
+      end
+    end
+
+    trait :with_10_articles_and_user do
+      after(:create) do |tag|
+        create :user
+        create_list :article, 10, tags: [tag], author_id: User.first.id
       end
     end
   end

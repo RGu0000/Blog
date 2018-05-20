@@ -1,25 +1,25 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_user, only: %i[destroy edit update]
+  before_action :set_user_and_article, only: %i[edit update destroy]
+  before_action :set_new_article_form, only: %i[new create]
 
   def index
     @articles = Article.paginate(page: params[:page], per_page: 25)
   end
 
   def show
-    @article = Article.find(params[:id]).decorate
+    @article = Article.includes(:author).find(params[:id]).decorate
     @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
+    if (@rating = @article.ratings.find_by(author_id: current_user))
+    else
+      @rating = @article.ratings.new
+    end
   end
 
-  def new
-    @article = Article.new
-    @article_form = ArticleForm.new(@article)
-  end
+  def new; end
 
   def create
-    @article = Article.new
-    @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
@@ -29,15 +29,9 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article = Article.find(params[:id])
-    @article_form = ArticleForm.new(@article)
-    # binding.pry
-  end
+  def edit; end
 
   def update
-    @article = Article.find(params[:id])
-    @article_form = ArticleForm.new(@article)
     if @article_form.save(article_params)
       flash[:success] = 'Article updated'
       TagServices::OrphanTagDestroyer.call
@@ -62,13 +56,18 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article_form)
+    params.require(:article)
           .permit(:body, :title, :tags_string)
           .merge(author_id: current_user.id)
   end
 
-  def set_user
+  def set_new_article_form
+    @article_form = ArticleForm.new
+  end
+
+  def set_user_and_article
     @article = Article.find(params[:id])
+    @article_form = ArticleForm.new(@article)
     if current_user.id == @article.author_id
       @author = current_user
     else

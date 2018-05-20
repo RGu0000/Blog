@@ -272,6 +272,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sexp_processor (4.10.1)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     simple_form (4.0.0)
       actionpack (> 4)
       activemodel (> 4)
@@ -360,6 +362,7 @@ DEPENDENCIES
   rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
   selenium-webdriver
+  shoulda-matchers (~> 3.1)
   simple_form
   simplecov
   spring

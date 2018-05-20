@@ -1,16 +1,8 @@
 - if user_signed_in?
-  = form_for [@article, @comment], url: article_comments_path(@article) do |f|
-    - if @comment.errors.any?
-      %ul
-        - @comment.errors.full_messages.each do |error|
-          %li
-            = error
-    %p
-      = f.label :body, "Add a new comment:"
-      = f.text_area :body, size: "100 x 3"
-      = f.hidden_field :parent_id
-    %p
-      = f.submit
+  = simple_form_for [@article, @comment], url: article_comments_path(@article) do |f|
+    = f.input :body, label: "Add a new comment:", as: :text, input_html: { :style => 'height: 100px' }
+    = f.hidden_field :parent_id
+    = f.button :submit, 'Send!'
 - else
   .well
     %p.text-muted

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe UserDecorator do
   describe '#displayed_name' do
     let!(:user) { create :user }
+
     context 'name left empty' do
       before { user.name = '' }
 

@@ -1,19 +1,25 @@
 class ArticleForm
   include ActiveModel::Model
-  delegate :title, :body, :author_id, :tags, :id, :persisted?, to: :article
-  attr_accessor :article
-  validates_presence_of :title, :body, :tags
+  delegate :title, :body, :author_id, :tags, :id, :persisted?, :new_record?, to: :article
+  attr_accessor :article, :tags_string
+  validates :title, :body, :tags, presence: true
+  validates_length_of :title, within: 8..512
+  validates_length_of :body, within: 8..2048
   validate :validate_prohibited_words
 
-  def initialize(article)
+  def self.model_name
+    ActiveModel::Name.new(self, nil, 'Article')
+  end
+
+  def initialize(article = Article.new)
     @article = article
   end
 
   def save(article_params)
-    @article.update_attributes(article_params.slice('title', 'body', 'author_id'))
-    @article.tags = tag_list(article_params[:tags_string])
+    assign_params_to_article(article_params)
 
     if valid?
+      @article.tags.each(&:save!)
       @article.save!
       true
     else
@@ -25,7 +31,7 @@ class ArticleForm
     tags_string.scan(/\w+/)
                .map(&:downcase)
                .uniq
-               .map { |name| Tag.find_or_create_by(name: name) }
+               .map { |name| Tag.find_or_initialize_by(name: name) }
   end
 
   def all_tags
@@ -34,6 +40,11 @@ class ArticleForm
   end
 
   private
+
+  def assign_params_to_article(params)
+    @article.attributes = params.except(:tags_string)
+    @article.tags = tag_list(params[:tags_string])
+  end
 
   def validate_prohibited_words
     forbidden_words = %w[noob n00b looser feeder newbie lame]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510181314) do
+ActiveRecord::Schema.define(version: 20180520102529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(version: 20180510181314) do
     t.integer "parent_id"
     t.index ["article_id"], name: "index_comments_on_article_id"
     t.index ["author_id"], name: "index_comments_on_author_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.decimal "rate", precision: 3, scale: 1
+    t.integer "author_id", null: false
+    t.integer "article_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_ratings_on_article_id"
+    t.index ["author_id"], name: "index_ratings_on_author_id"
   end
 
   create_table "taggings", force: :cascade do |t|

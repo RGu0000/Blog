@@ -2,8 +2,10 @@
 %h3= "Written by #{@article.author.displayed_name} on #{@article.formatted_created_at}"
 %p= @article.body
 
+- if current_user.present?
+  = render 'ratings/form'
+  
 = comments_tree_for @comments
-
 = render 'comments/form'
 
 .well
