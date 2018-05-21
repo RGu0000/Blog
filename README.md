@@ -1,6 +1,12 @@
 # BLOG
 This app enables you to create the account and post articles and tag them. Users can comment on articles and rate them. Browsing tags and seeing associated articles is also possible.
 
+---
+
+### LATEST UPDATE: app's online under link:  https://rgublog.herokuapp.com/
+
+---
+
 ## Technical features used in the project:
 * General practice in building CRUD applications - migrations, associations, routing, seeding DB, strong params, mass updating, etc.
 * Building few forms and using (and reusing) them in controller actions for both creating and editing
@@ -13,7 +19,14 @@ This app enables you to create the account and post articles and tag them. Users
 * Code refactoring (to follow the principle of 'DRY' and meet Rubocop's requirements)
 * Debugging, debugging, debugging
 
-## How to start the app on your machine
+## How to start the app:
+
+#### Easy way: 
+
+https://rgublog.herokuapp.com/
+
+#### Many steps way:
+
 0. Have Ruby/Rails environment already set up
 1. Clone:
 ```bash
