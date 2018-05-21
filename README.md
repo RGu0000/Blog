@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/RGu0000/Blog.svg?branch=master)](https://travis-ci.org/RGu0000/Blog)
 # BLOG
 This app enables you to create the account and post articles and tag them. Users can comment on articles and rate them. Browsing tags and seeing associated articles is also possible.
 
