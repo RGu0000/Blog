@@ -21,7 +21,7 @@ This app enables you to create the account and post articles and tag them. Users
 
 ## How to start the app:
 
-#### Easy way: 
+#### Easy way:
 
 https://rgublog.herokuapp.com/
 
@@ -55,4 +55,6 @@ $ rails s
 
 Enjoy!
 
+* Ruby version: 2.5.0
 * Rails version: 5.1.5
+* PostgreSQL version: 9.5.12
