@@ -18,7 +18,7 @@ end
   Tag.create(name: FFaker::BaconIpsum.word + i.to_s)
 end
 
-150.times do |index|
+60.times do
   Article.create(
     title: FFaker::BaconIpsum.sentence,
     body: FFaker::BaconIpsum.paragraph,
@@ -27,17 +27,29 @@ end
   )
 end
 
-Comment.create(
-  body: FFaker::Lorem.sentence,
-  article_id: 1,
-  author_id: 1
-)
-
-5.times do |i|
+120.times do
   Comment.create(
     body: FFaker::Lorem.sentence,
-    article_id: 1,
-    author_id: 1,
-    parent_id: i + 1
+    article_id: Article.all.sample.id,
+    author_id: User.all.sample.id,
+    parent_id: nil
+  )
+end
+
+120.times do
+  c = Comment.new(
+    body: FFaker::Lorem.sentence,
+    parent_id: Comment.all.sample.id,
+    author_id: User.all.sample.id
+  )
+  c.article_id = Comment.find(c.parent_id).article.id
+  c.save
+end
+
+180.times do
+  Rating.create(
+    author_id: User.all.sample.id,
+    article_id: Article.all.sample.id,
+    rate: (0..10).step(0.5).to_a.sample
   )
 end

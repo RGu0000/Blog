@@ -13,7 +13,7 @@
     - else
       Sign in to rate this article
     %br
-    = "Average article rating: #{@average_rating}, with #{pluralize(@vote_count, 'vote')}"
+    = "Average article rating: #{@average_rating.round(2)}, with #{pluralize(@vote_count, 'vote')}"
 
 = comments_tree_for @comments
 = render 'comments/form'
