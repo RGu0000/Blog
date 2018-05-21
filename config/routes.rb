@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'articles#index'
+  root 'welcome#index'
 
   devise_for :users, controllers: {
     registrations: 'override_devise/registrations'
