@@ -1,4 +1,5 @@
 %h1= @article.title
+=render 'bookmarks/bookmark'
 %h3= "Written by #{@article.author.displayed_name} on #{@article.formatted_created_at}"
 %p= @article.body
 

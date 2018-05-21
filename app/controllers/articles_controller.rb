@@ -73,6 +73,7 @@ class ArticlesController < ApplicationController
   def initialize_associated_objects
     @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
+
     if (@rating = @article.ratings.find_by(author_id: current_user))
     else
       @rating = @article.ratings.new
@@ -84,5 +85,6 @@ class ArticlesController < ApplicationController
     end
 
     @vote_count = Rating.where(article_id: @article).count
+    @user_bookmark = @article.bookmarks.where(user_id: current_user).first if current_user.present?
   end
 end
