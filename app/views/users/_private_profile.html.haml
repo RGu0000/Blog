@@ -1,6 +1,9 @@
 %h1 Welcome #{@user.displayed_name}!
+Your articles:
 =render 'article_list'
 %br
+Your bookmarked articles:
+=render 'bookmarked_list'
 %br
 =link_to "Edit your account", edit_user_registration_path(@user)
 %br
