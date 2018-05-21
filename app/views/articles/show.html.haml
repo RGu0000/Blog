@@ -3,13 +3,13 @@
 %p= @article.body
 
 .well
-  %p.text-muted
+  .text-muted
     - if current_user.present?
       = render 'ratings/form'
       - if @rating.new_record?
         You haven't rated this article yet
       -else
-        = "Your rate for this movie: #{@rating.rate}" unless @rating.new_record?
+        = "Your rate for this article: #{@rating.rate}" unless @rating.new_record?
     - else
       Sign in to rate this article
     %br
