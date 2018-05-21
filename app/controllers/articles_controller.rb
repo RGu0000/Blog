@@ -9,12 +9,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.includes(:author).find(params[:id]).decorate
-    @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
-    @comment = Comment.new
-    if (@rating = @article.ratings.find_by(author_id: current_user))
-    else
-      @rating = @article.ratings.new
-    end
+    initialize_associated_objects
   end
 
   def new; end
@@ -68,10 +63,26 @@ class ArticlesController < ApplicationController
   def set_user_and_article
     @article = Article.find(params[:id])
     @article_form = ArticleForm.new(@article)
-    if current_user.id == @article.author_id
+    if current_user.id == @article.authonilr_id
       @author = current_user
     else
       redirect_to article_path(@article), message: 'You can\'t do that'
     end
+  end
+
+  def initialize_associated_objects
+    @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
+    @comment = Comment.new
+    if (@rating = @article.ratings.find_by(author_id: current_user))
+    else
+      @rating = @article.ratings.new
+    end
+
+    if (@average_rating = Rating.where(article_id: @article).average(:rate))
+    else
+      @average_rating = 0.0
+    end
+
+    @vote_count = Rating.where(article_id: @article).count
   end
 end

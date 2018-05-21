@@ -1,3 +1,6 @@
-= simple_form_for [@article, @rating] do |f|
-  = f.input :rate,  collection: (0..10).step(0.5).to_a
+= simple_form_for [@article, @rating],
+  wrapper: :inline_form,
+  html: { class: "form-inline" } do |f|
+  = f.error_notification
+  = f.input :rate,  collection: (0..10).step(0.5).to_a, input_html: { :style => 'width: 60px' }
   = f.button :submit, 'Rate this article'
