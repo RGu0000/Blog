@@ -44,6 +44,10 @@ gem "erb2haml"
 gem 'will_paginate', '~> 3.1.0'
 gem 'simple_form'
 
+# Carriervawe for attaching the files to the app
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

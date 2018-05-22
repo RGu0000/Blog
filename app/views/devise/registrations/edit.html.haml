@@ -32,6 +32,16 @@
     %i (we need your current password to confirm your changes)
     %br/
     = f.password_field :current_password, autocomplete: "off"
+  %br
+  .field
+    Add your avatar
+    = f.file_field :avatar
+    - if f.object.avatar.present?
+      %br
+      = image_tag f.object.avatar.thumb.url
+      = f.label :remove_avatar
+      = f.check_box :remove_avatar
+  %br
   .actions
     = f.submit "Update"
 %h3 Cancel my account
