@@ -18,8 +18,8 @@ RSpec.describe AvatarUploader do
   end
 
   context 'the thumb version' do
-    it "scales down a landscape image to be exactly 250 by 250 pixels" do
-      expect(uploader.thumb).to have_dimensions(250, 250)
+    it "scales down an image to thumb to be no larger exactly 250 by 250 pixels" do
+      expect(uploader.thumb).to be_no_larger_than(250, 250)
     end
   end
 
