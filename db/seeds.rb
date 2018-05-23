@@ -53,3 +53,10 @@ end
     rate: (0..10).step(0.5).to_a.sample
   )
 end
+
+180.times do
+  Bookmark.create(
+    user_id: User.all.sample.id,
+    article_id: Article.all.sample.id
+  )
+end
