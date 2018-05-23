@@ -1,0 +1,9 @@
+%ul
+-unless @user_rates.empty?
+  -@user_rates.each do |rate|
+    %li
+      = link_to "#{rate.article.title}", article_path(rate.article)
+      = rate.rate
+-else
+  There are no bookmarked articles to display!
+%br
