@@ -1,7 +1,10 @@
 =render 'bookmarks/bookmark'
 %h1= @article.title
 
-%h3= "Written by #{@article.author.displayed_name} on #{@article.formatted_created_at}"
+%h3
+  Written by
+  =link_to(@article.author.displayed_name, user_path(@article.author))
+  ="on #{@article.formatted_created_at}"
 %p= @article.body
 
 .well
