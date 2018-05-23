@@ -1,6 +1,15 @@
 %h1 #{@user.displayed_name}'s profile
-%h2 #{@user.displayed_name}'s articles:
-=render 'article_list'
+.well
+  .text-muted
+    %h2 #{@user.displayed_name}'s articles:
+    =render 'article_list'
 %br
-%h2 #{@user.displayed_name}'s bookmarked articles:
-=render 'bookmarked_list'
+.well
+  .text-muted
+    %h2 #{@user.displayed_name}'s bookmarked articles:
+    =render 'bookmarked_list'
+%br
+.well
+  .text-muted
+    %h2 #{@user.displayed_name}'s rated articles:
+    =render 'rates_list'

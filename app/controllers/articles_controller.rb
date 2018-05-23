@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
   def set_user_and_article
     @article = Article.find(params[:id])
     @article_form = ArticleForm.new(@article)
-    if current_user.id == @article.authonilr_id
+    if current_user.id == @article.author_id
       @author = current_user
     else
       redirect_to article_path(@article), message: 'You can\'t do that'
