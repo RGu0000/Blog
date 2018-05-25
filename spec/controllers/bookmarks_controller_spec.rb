@@ -16,11 +16,7 @@ RSpec.describe BookmarksController, type: :controller do
     it { expect(subject.status).to eq(302) }
   end
 
-<<<<<<< HEAD
   describe 'DELETE #destroy' do
-=======
-  describe 'DEKETE #destroy' do
->>>>>>> 2f045587f0899dd58ddb80c2c656b4049a73a04d
     let!(:bookmark) { create(:bookmark, user_id: user.id, article_id: Article.first.id) }
 
     subject do
