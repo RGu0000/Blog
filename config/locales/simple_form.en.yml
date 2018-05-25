@@ -9,7 +9,14 @@ en:
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      # default_message: "Please review the problems below:"
+      activerecord:
+        
+  errors:
+    messages:
+      blank: "%{attribute} can't be blank"
+      invalid: "%{attribute} isn't valid"
+                    # blank: "You must select a category for this post."
     # Examples
     # labels:
     #   defaults:
