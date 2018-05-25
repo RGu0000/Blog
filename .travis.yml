@@ -3,7 +3,7 @@ rvm:
  - 2.5.0
 
 before_script:
-  - psql -c "CREATE USER blogtester WITH PASSWORD 'blogtester';" -U postgres
+  - psql -c "CREATE USER Blog WITH PASSWORD 'password';" -U postgres
 
 script:
  - bundle exec rubocop
