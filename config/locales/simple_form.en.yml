@@ -11,12 +11,12 @@ en:
     error_notification:
       # default_message: "Please review the problems below:"
       activerecord:
-        
+
   errors:
     messages:
       blank: "%{attribute} can't be blank"
       invalid: "%{attribute} isn't valid"
-                    # blank: "You must select a category for this post."
+
     # Examples
     # labels:
     #   defaults:

@@ -37,8 +37,6 @@ class ArticleForm
 
   def assign_params_to_article(params)
     @article.attributes = params.except(:tags_string)
-    # errors.add(:tags_string, "test") if params[:tags_string] == ''
-    # binding.pry
     @article.tags = tag_list(params[:tags_string])
   end
 
