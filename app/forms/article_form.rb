@@ -2,9 +2,10 @@ class ArticleForm
   include ActiveModel::Model
   delegate :title, :body, :author_id, :tags, :id, :persisted?, :new_record?, to: :article
   attr_accessor :article, :tags_string
-  validates :title, :body, :tags, presence: true
+  validates :tags, presence: { error_message: "Tags can't be blank" }
   validates_length_of :title, within: 8..512
   validates_length_of :body, within: 8..2048
+  # validates_length_of :tags_string, minimum: 1
   validate :validate_prohibited_words
 
   def self.model_name
@@ -27,13 +28,6 @@ class ArticleForm
     end
   end
 
-  def tag_list(tags_string)
-    tags_string.scan(/\w+/)
-               .map(&:downcase)
-               .uniq
-               .map { |name| Tag.find_or_initialize_by(name: name) }
-  end
-
   def all_tags
     return tags.collect(&:name).join(', ') if tags.present?
     ''
@@ -44,6 +38,13 @@ class ArticleForm
   def assign_params_to_article(params)
     @article.attributes = params.except(:tags_string)
     @article.tags = tag_list(params[:tags_string])
+  end
+
+  def tag_list(tags_string)
+    tags_string.scan(/\w+/)
+               .map(&:downcase)
+               .uniq
+               .map { |name| Tag.find_or_initialize_by(name: name) }
   end
 
   def validate_prohibited_words
