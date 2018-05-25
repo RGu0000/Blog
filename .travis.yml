@@ -4,4 +4,6 @@ rvm:
 
 script:
  - bundle exec rubocop
+ - rake db:create:all
+ - rake db:migrate
  - bundle exec rake spec
