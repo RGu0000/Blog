@@ -2,17 +2,16 @@ language: ruby
 rvm:
  - 2.5.0
 
- services:
+services:
   - postgresql
 
 env:
   - RAILS_ENV=test
 
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - bundle exec rake db:create
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
  - bundle exec rubocop
- - bundle exec rake db:migrate
- - bundle exec rake spec
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
