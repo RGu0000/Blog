@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tag do
-    sequence(:name) { |n| "Tag#{n}" }
+    sequence(:name) { |n| "tag#{n}" }
 
     trait :with_1_article_and_user do
       after(:create) do |tag|

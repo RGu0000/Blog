@@ -2,10 +2,10 @@ class ArticleForm
   include ActiveModel::Model
   delegate :title, :body, :author_id, :tags, :id, :persisted?, :new_record?, to: :article
   attr_accessor :article, :tags_string
+
   validates :tags, presence: { error_message: "Tags can't be blank" }
   validates_length_of :title, within: 8..512
   validates_length_of :body, within: 8..2048
-  # validates_length_of :tags_string, minimum: 1
   validate :validate_prohibited_words
 
   def self.model_name
