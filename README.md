@@ -17,8 +17,9 @@ This app enables you to create the account and post articles and tag them. Users
 * Customizing devise action
 * Preventing N+1 queries - with Bullet gem as a reminder/helper to use eager loading and with custom SQL queries for more complicated associations (e.g. deleting the User, his comments, articles, its comments, taggings and tags if there are no more articles assigned to it with as few queries as possible)
 * RSpec - almost 100% of code according to Simplecov gem is covered (including controllers, models, queries, services, form objects, decorators) - exact value of coverage depends on the current stage of implementation of new features. Mocks/stubs and factories were used as well while writing specs.
-* Carrierwave - uploading an image to user profile as an avatar - no connection to Cloud storage - so images uploaded by users on Heroku may eventually disapear
+* Carrierwave - uploading an image to user profile as an avatar - no connection to Cloud storage - images uploaded by users on Heroku will eventually disapear (but are still referenced by an app, which leads to 'ugly' image names appearing instead of actuall image)
 * Code refactoring (to follow the principle of 'DRY' and meet Rubocop's requirements)
+* CI with Travis - script runs Rubocop and RSpecs
 * Debugging, debugging, debugging
 
 ## How to start the app:
