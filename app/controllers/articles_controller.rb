@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'You have added a new article.'
       redirect_to @article_form.article
     else
-      flash[:danger] = 'Failed to add new article.'
+      flash.now[:error] = 'Failed to add a new article. Check errors below.'
       render :new
     end
   end
@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
       TagServices::OrphanTagDestroyer.call
       redirect_to @article_form.article
     else
-      flash[:error] = 'Failed to update the article'
+      flash.now[:error] = 'Failed to update the article. Check errors below.'
       render :edit
     end
   end

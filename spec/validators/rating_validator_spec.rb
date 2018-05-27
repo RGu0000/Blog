@@ -39,8 +39,6 @@ RSpec.describe RatingValidator do
     let(:rate) { 0.35 }
     it_behaves_like 'has invalid rating'
   end
-
-
 end
 
 class Validatable

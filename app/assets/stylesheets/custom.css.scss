@@ -22,3 +22,23 @@ position: absolute;
     line-height:30px;
     padding:6px;
     }
+
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+.invalid-feedback {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+.form-group.string.optional.article_tags_string {
+  margin-bottom: 0px;
+}
+
+.tags {
+  margin-bottom: 15px;
+}
