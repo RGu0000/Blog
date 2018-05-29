@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
+  repo_name = '#{repo_name}/#{repo_name}' unless repo_name.include?('/')
+  'https://github.com/#{repo_name}.git'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -38,15 +38,21 @@ gem 'devise'
 # HTTP Client
 gem 'faraday'
 gem 'html2haml'
-gem 'haml-rails', "~> 1.0"
+gem 'haml-rails', '~> 1.0'
 gem 'haml'
-gem "erb2haml"
+gem 'erb2haml'
 gem 'will_paginate', '~> 3.1.0'
 gem 'simple_form'
 
 # Carriervawe for attaching the files to the app
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
+
+# Grape for creating Api
+gem 'grape'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -82,10 +88,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem "bullet"
-  gem "pry-rails"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'pry-rails'
 
 
 end

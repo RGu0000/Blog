@@ -17,10 +17,14 @@ Rails.application.routes.draw do
   get 'tags/:name', to: 'tags#show_name', as: "tag_name"
   get 'articles/:article_id/comments/new/(:parent_id)', to: 'comments#new', as: :new_comment
 
-  namespace :api do
-    namespace :v1 do
-      resources :articles, only: [:index, :show]
-    end
-  end
+  # namespace :api do
+  #   namespace :v1 do
+  #     resources :articles, only: [:index, :show]
+  #   end
+  # end
 
+  Rails.application.routes.draw do
+    mount API::Base, at: "/"
+  end
+  mount GrapeSwaggerRails::Engine, at: "/documentation"
 end
