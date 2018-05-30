@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_for :users, controllers: {
-    registrations: 'override_devise/registrations'
+    registrations: 'override_devise/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   resources :tags, only: %i[index]
