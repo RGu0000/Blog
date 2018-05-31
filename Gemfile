@@ -56,6 +56,7 @@ gem 'grape-active_model_serializers'
 
 # Omniauth for Google authentication
 gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
