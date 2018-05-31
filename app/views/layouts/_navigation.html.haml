@@ -13,3 +13,9 @@
           %li= link_to "Login", new_user_session_path
           %li= link_to "Sign in", new_user_registration_path
           %li= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path
+          .fb-login-button{"data-auto-logout-link" => "false",
+                           "data-button-type" => "login_with",
+                           "data-max-rows" => "1",
+                           "data-show-faces" => "false",
+                           "data-size" => "small", "data-use-continue-as" => "false"}
+          %li= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path

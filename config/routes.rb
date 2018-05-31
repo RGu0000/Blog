@@ -24,8 +24,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  Rails.application.routes.draw do
-    mount API::Base, at: "/"
-  end
+  mount API::Base, at: "/"
   mount GrapeSwaggerRails::Engine, at: "/documentation"
 end

@@ -8,6 +8,8 @@ module UserServices
       Tagging.where(article_id: article_ids).delete_all
       Comment.where(article_id: article_ids).delete_all
       Article.where(id: article_ids).delete_all
+      Rating.where(author_id: user_id).delete_all
+      Bookmark.where(user_id: user_id).delete_all
 
       comments = Set.new
       Comment.includes(:descendant_hierarchies)
