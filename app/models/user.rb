@@ -12,19 +12,20 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
+    unless (email = data['email'])
+      email = "#{data['name'].gsub(/\s+/, '').downcase}@facebook.com"
+    end
+    user = User.where(email: email).first
 
     unless user
       password = Devise.friendly_token[0, 20]
-      user = User.new(
+      user = User.create(
         name: data['name'],
-        email: data['email'],
+        email: email,
         password: password,
         password_confirmation: password,
         remote_avatar_url: data['image']
       )
-      user.email ||= "#{user.name.gsub(/\s+/, '')}@facebook.com"
-      user.save
     end
     user
   end
