@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   has_many :articles, foreign_key: 'author_id', dependent: :destroy
   has_many :comments, foreign_key: 'author_id', dependent: :destroy
-  has_many :ratings, dependent: :destroy
+  has_many :ratings, foreign_key: 'author_id', dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
