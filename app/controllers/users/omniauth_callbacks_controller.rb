@@ -1,28 +1,22 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def google_oauth2
+  def sign_in_with(provider_name)
     @user = User.from_omniauth(request.env['omniauth.auth'])
-
     if @user.persisted?
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: provider_name
       sign_in_and_redirect @user, event: :authentication
     else
-      session['devise.google_data'] = request.env['omniauth.auth'].except(:extra)
       redirect_to new_user_registration_url, alert: @user.errors.full_messages.join('\n')
     end
   end
 
-  def facebook
-    @user = User.from_facebook(request.env['omniauth.auth'])
+  def google_oauth2
+    sign_in_with 'Google'
+  end
 
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
-      set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
-    else
-      session['devise.facebook_data'] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url
-    end
+  def facebook
+    sign_in_with 'Facebook'
   end
 
   def failure

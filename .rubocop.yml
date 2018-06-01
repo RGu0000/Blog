@@ -36,7 +36,6 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/spec_helper.rb'
     - 'spec/rails_helper.rb'
-    - 'app/models/user.rb'
 Style/Lambda:
   EnforcedStyle: literal
 Layout/DotPosition:

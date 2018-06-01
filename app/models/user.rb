@@ -10,40 +10,20 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    unless (email = data['email'])
-      email = "#{data['name'].gsub(/\s+/, '').downcase}@facebook.com"
-    end
-    user = User.where(email: email).first
-
-    unless user.present?
-      password = Devise.friendly_token[0, 20]
-      user = User.create(
-        name: data['name'],
-        email: email,
-        password: password,
-        password_confirmation: password,
-        remote_avatar_url: data['image']
-      )
-    end
-    user
-  end
-
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] &&  session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if (data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info'])
+        user.email = data['email'] if user.email.blank?
       end
     end
   end
 
-  def self.from_facebook(auth)
+  def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.name = auth.info.name
-      user.avatar = auth.info.avatar
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.first_name
+      user.remote_avatar_url = auth.info.image.gsub('http://', 'https://')
     end
   end
 end
