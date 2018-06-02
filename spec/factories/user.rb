@@ -7,5 +7,9 @@ FactoryBot.define do
     trait :other_user do
       email { 'other_user@mail.com' }
     end
+
+    trait :admin do
+      admin { true }
+    end
   end
 end

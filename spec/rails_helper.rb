@@ -8,7 +8,6 @@ require 'devise'
 require 'haml'
 require 'closure_tree/test/matcher'
 
-
 SimpleCov.start do
   add_filter "/config/"
   add_filter "/spec/"
@@ -31,7 +30,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Configures shoulda-matchers
 Shoulda::Matchers.configure do |config|
