@@ -63,6 +63,9 @@ gem 'omniauth-facebook', '~> 3.0.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Authorization - pundit gem
+gem 'pundit'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
