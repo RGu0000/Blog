@@ -14,6 +14,13 @@
   )
 end
 
+User.create(
+  email: "admin@mail.com",
+  name: "admin",
+  password: "password",
+  admin: true
+)
+
 15.times do |i|
   Tag.create(name: FFaker::BaconIpsum.word + i.to_s)
 end
