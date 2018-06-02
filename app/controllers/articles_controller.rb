@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_user_and_article, only: %i[edit update destroy]
+  before_action :set_article, only: %i[edit update destroy]
   before_action :set_new_article_form, only: %i[new create]
 
   def index
@@ -60,30 +60,17 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new
   end
 
-  def set_user_and_article
+  def set_article
     @article = Article.find(params[:id])
     @article_form = ArticleForm.new(@article)
-    if current_user.id == @article.author_id
-      @author = current_user
-    else
-      redirect_to article_path(@article), message: 'You can\'t do that'
-    end
+    authorize @article, :authorized?
   end
 
   def initialize_associated_objects
     @comments = Comment.includes(:author, :children, :article).where(article_id: @article.id).hash_tree
     @comment = Comment.new
-
-    if (@rating = @article.ratings.find_by(author_id: current_user))
-    else
-      @rating = @article.ratings.new
-    end
-
-    if (@average_rating = Rating.where(article_id: @article).average(:rate))
-    else
-      @average_rating = 0.0
-    end
-
+    @rating = @article.ratings.find_by(author_id: current_user) || @article.ratings.new
+    @average_rating = Rating.where(article_id: @article).average(:rate) || 0.0
     @vote_count = Rating.where(article_id: @article).count
     @user_bookmark = @article.bookmarks.where(user_id: current_user).first if current_user.present?
   end
