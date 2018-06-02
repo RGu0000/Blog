@@ -9,6 +9,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_1_article do
+      after(:create) do |tag|
+        create :article, tags: [tag], author_id: User.first.id
+      end
+    end
+
     trait :with_2_articles_and_user do
       after(:create) do |tag|
         create :user
