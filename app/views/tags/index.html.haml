@@ -5,3 +5,6 @@
     %li
       =link_to "##{tag.name} -- [#{pluralize(tag.tags_count, 'article')}]", tag_name_path("#{tag.name}")
 = will_paginate
+
+%h4 Press the button below to generate random tag name
+=link_to "Generate new tag and add it to random article", random_tag_path

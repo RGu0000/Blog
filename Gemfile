@@ -16,6 +16,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'closure_tree'
+# Adding sidekiq + redis
+gem 'sidekiq'
+gem 'redis-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
