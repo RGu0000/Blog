@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   root 'welcome#index'
 
   devise_for :users, controllers: {
@@ -15,15 +17,14 @@ Rails.application.routes.draw do
     resources :bookmarks, only: %i[create destroy]
   end
 
+  get 'tags/create_random', to: 'tags#create_random', as: "random_tag"
   get 'tags/:name', to: 'tags#show_name', as: "tag_name"
   get 'articles/:article_id/comments/new/(:parent_id)', to: 'comments#new', as: :new_comment
-
   # namespace :api do
   #   namespace :v1 do
   #     resources :articles, only: [:index, :show]
   #   end
   # end
-
   mount API::Base, at: "/"
   mount GrapeSwaggerRails::Engine, at: "/documentation"
 end
