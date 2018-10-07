@@ -13,4 +13,9 @@ class TagsController < ApplicationController
     TagWorker.perform_async
     redirect_to tags_path
   end
+
+  def raise_error
+    TagErrorWorker.perform_async
+    redirect_to tags_path
+  end
 end
