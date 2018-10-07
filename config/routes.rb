@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   get 'tags/create_random', to: 'tags#create_random', as: "random_tag"
+  get 'tags/raise_error', to: 'tags#raise_error', as: "raise_error_tag"
   get 'tags/:name', to: 'tags#show_name', as: "tag_name"
   get 'articles/:article_id/comments/new/(:parent_id)', to: 'comments#new', as: :new_comment
   # namespace :api do
